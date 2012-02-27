@@ -1,8 +1,10 @@
 // Name: Christopher Addington
-// Date: 07 December, 2011
-// Assignment: Project 3
-// MIU Term 1112
+// Date: 27 February, 2012
+// Assignment: Project 1
+// ASD Term 0312
 
+$(function(){
+    
 var parseTeamForm = function(data){
     console.log(data);
 };
@@ -22,7 +24,7 @@ function saveLocal(key) {
     localStorage.setItem(id, JSON.stringify(item));
 }
 
-$(document).ready(function(){
+$(function(){
     
     var tmform = $('#teamform');
     
@@ -37,7 +39,6 @@ $(document).ready(function(){
     });
 });
 
-/*
 window.addEventListener("DOMContentLoaded", function () {
     function $(x) {
         var theElement = document.getElementById(x);
@@ -84,7 +85,7 @@ window.addEventListener("DOMContentLoaded", function () {
         return availableValue;
     }
     */
-/*    
+
     function toggleControls(n){
         switch(n){
             case "on":
@@ -299,4 +300,4 @@ window.addEventListener("DOMContentLoaded", function () {
     var save = $('submit');
     save.addEventListener("click", validate);
 });
-*/
+});
