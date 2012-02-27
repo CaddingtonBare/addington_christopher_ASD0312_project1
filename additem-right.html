@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<!-- MIU Project 3 / Christopher Addington / Term: 1112, 07 December 2011 -->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="description" content="Pickup League add new team page" />
+        <meta name="keywords" content="pickup, sports, league, add team" />
+        <meta name="robots" content="index, follow" />
+        <meta name="viewport" content="user-scalable=no, width=device-width" />
+        <meta name="HandheldFriendly" content="True" />
+        <title>My Pickup League - Create New Team</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+	<link rel="stylesheet" type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.css" />
+	<link rel="stylesheet" href="css/styles-right.css" />
+        <script type="text/javascript" src="js/libs/modernizr.custom.min.js"></script>
+    </head>
+    <body>
+    <div data-role="page" id="addteam" data-add-back-btn="true" data-theme="a">
+        <div data-role="header" data-theme="a" data-position="fixed">
+            <h1>Create New Team</h1>
+        </div>
+	<!--
+        <div data-role="content">
+            <div data-role="fieldcontain">
+		<!--
+                <nav>
+                    <a href="#" id= "displayData">Display Data</a>
+                    <a href="#" id= "clearData">Clear Stored Data</a>
+                    <a href="additem.html" id="addNew" style="display:none;">Add New Item</a>
+                </nav>
+            </div>
+        </div>
+	-->
+	<div data-role="content">
+	    <a href="index-right.html">
+	        <img id="brandlogo" src="images/leaguelogo.png" />
+	    </a>
+	</div>
+        <div data-role="content">
+            <form action="" method="post" id="teamform">
+                <div data-role="fieldcontain">
+		    <h6>* indicates required field</h6>
+                    <label for="selectsport">*Sport:</label>
+                    <select name="selectsport" id="selectsport" data-native-menu="false" class="required">
+                        <option data-placeholder="true" value>Select your team's sport...</option>
+                        <optgroup label="Sports">
+                            <option value="basketball">Basketball</option>
+                            <option value="football">Football</option>
+                            <option value="racquetball">Racquetball</option>
+                            <option value="soccer">Soccer</option>
+                            <option value="tennis">Tennis</option>
+                        </optgroup>    
+                    </select>
+                </div>
+                <div data-role="fieldcontain" data-theme="c">
+                    <label for="teamname">*Team Name:</label>
+                    <input type="text" id="teamname" name="teamname" class="required" data-theme="c" />       
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="teamsize">Team Size:</label>
+                    <input type="range" id="teamsize" value="5" min="1" max="11" data-theme="c" />
+                </div>
+		<div data-role="fieldcontain">
+		    <label for="nextdate">*Next available date:</label>
+		    <input name="nextdate" id="nextdate" type="date" data-role="datebox" data-options='{"mode": "calbox", "disableManualInput": true}' class="required" data-theme="c" />
+		</div>
+                <div data-role="fieldcontain">
+                    <label for="playtime">Only available in the evening?</label>
+                    <select data-role="slider" id="availabletime">
+                        <option value="on">Yes</option>
+                        <option value="off">No</option>
+                    </select>
+                </div>
+
+<!--
+Commented out until I decide if I want to replace the "Only available in the evening?" slider.
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <legend>Available to play:</legend>
+                        <input type="checkbox" value="Morning" name="morning" id="playtime1" />
+                        <label for="playtime1">Morning</label>
+                        <input type="checkbox" value="Afternoon" name="morning" id="playtime2" />
+                        <label for="playtime2">Afternoon</label>
+                        <input type="checkbox" value="Evening" name="morning" id="playtime3" />
+                        <label for="playtime3">Evening</label>
+                    </fieldset>   
+                </div>
+-->
+                <div data-role="fieldcontain">
+                    <label for="notes">Notes:</label>
+                    <textarea data-theme="c"></textarea>
+                </div>
+
+
+                <div data-role="fieldcontain">
+		    <div class="ui-grid-a">
+			<div class="ui-block-a">
+			    <input type="submit" value="Create" data-icon="check" data-iconpos="left" data-iconshadow="true" data-shadow="true" data-theme="e" />
+			</div>
+			<div class="ui-block-b">
+			    <input type="reset" value="Reset" data-icon="refresh" data-iconpos="left" data-iconshadow="true" data-shadow="true" data-theme="a" />
+			</div>
+		    </div>			
+                </div>
+            </form>
+        </div>
+    </div>             
+<!--
+        <section>
+            <form>
+                <fieldset id="teamFieldset">
+                    <legend>Team Info</legend>
+                    <span>* fields are required.</span>
+                    <ul id="errors"></ul>
+                    <ul id="teaminfo">
+                        <li id="select"><label for="sports">*Select your sport:</label><br /></li>
+                        <li><label for="teamname">*Team Name:</label><br />
+                            <input type="text" id="teamname" required aria-required="true" />
+                        </li>
+                        <li><label for="teamsize">Team Size (1-11):</label><br />
+                            <input type="range" min="1" max="11" id="teamsize" />
+                        </li>
+                        <li>Only available in the evening?
+-->
+                        <!-- Personal preference of mine to have the /li breaks at the end of the line only within sublists (illustrated two lines down), otherwise I close them out on level with li (illustrated two lines up) -->
+<!--                            <ul>
+                                <li><label for="playtime"><input type="checkbox" value="Yes" id="playtime" /></label></li>
+                            </ul>
+                        </li>
+                        <li><label for="nextdate">Next available date:</label>
+                            <input type="date" min="2011-10-27" max="2011-11-27" id="nextdate" name="nextdate" placeholder="YYYY-MM-DD" required aria-required="true" />
+                        </li>
+                        <li><label for="notes">Notes:</label><br /><textarea id="notes"></textarea>
+                        </li>
+                    </ul>
+                </fieldset>
+            </form>
+        </section>
+-->                
+	<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i8n/jquery.mobile.datebox.i8n.en.js"></script>
+        <script type="text/javascript" src="js/libs/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+    </body>
+</html>
