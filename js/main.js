@@ -22,10 +22,7 @@ function saveLocal(key) {
     item.nextdate               = ["Next available date: ", $('nextdate').value];
 //Save data into Local Storage: Use Stringify to convert our object to a string
     localStorage.setItem(id, JSON.stringify(item));
-}
-
-$(function(){
-    
+}   
     var tmform = $('#teamform');
     
     tmform.validate({
@@ -35,15 +32,9 @@ $(function(){
             parseTeamForm(data);
             saveLocal();
             alert("Team saved!");
-        }
-    });
-});
 
-window.addEventListener("DOMContentLoaded", function () {
-    function $(x) {
-        var theElement = document.getElementById(x);
-        return theElement;
-    }
+$(function(){
+
     //Create select field and populate with options
     function fillOptions() {
         var formTag = document.getElementsByTagName("form"),
