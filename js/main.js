@@ -4,22 +4,18 @@
 // ASD Term 0312
 
 $(function(){
-    
-var parseTeamForm = function(data){
-    console.log(data);
-};
 
-function saveLocal(key) {
+var saveLocal = function(key){
     if(!key){
         var id                  = Math.floor(Math.random()*42000000); 
     }else{
         id = key;
     }
     var item                    = {};
-    item.sports                 = ["Sport: ", $('sports').value];
-    item.teamname               = ["Name: ", $('teamname').value];
-    item.teamsize               = ["Team Size: ", $('teamsize').value];
-    item.nextdate               = ["Next available date: ", $('nextdate').value];
+    item.sports                 = ["Sport: ", $('#sports').value];
+    item.teamname               = ["Name: ", $('#teamname').value];
+    item.teamsize               = ["Team Size: ", $('#teamsize').value];
+    item.nextdate               = ["Next available date: ", $('#nextdate').value];
 //Save data into Local Storage: Use Stringify to convert our object to a string
     localStorage.setItem(id, JSON.stringify(item));
 }   
@@ -36,9 +32,9 @@ function saveLocal(key) {
 $(function(){
 
     //Create select field and populate with options
-    function fillOptions() {
+    var fillOptions = function(){
         var formTag = document.getElementsByTagName("form"),
-            selectLi = $('select'),
+            selectLi = $('#select'),
             makeSelect = document.createElement('select');
             makeSelect.setAttribute("id", "sports");
         for (var i = 0, j = selectSport.length; i<j; i++) {
@@ -52,8 +48,8 @@ $(function(){
     }
     //Checkbox function
     function getCheckboxValue(){
-        if($('playtime').checked){
-            availableValue = $('playtime').value;
+        if($('#playtime').checked){
+            availableValue = $('#playtime').value;
         }else{
             availableValue = "No"
         }
@@ -77,20 +73,20 @@ $(function(){
     }
     */
 
-    function toggleControls(n){
+    var toggleControls = function(n){
         switch(n){
             case "on":
-                $('teamForm').style.display = "none";
-                $('clearData').style.display = "inline";
-                $('displayData').style.display = "none";
-                $('addNew').style.display = "inline";
+                $('#teamForm').style.display = "none";
+                $('#clearData').style.display = "inline";
+                $('#displayData').style.display = "none";
+                $('#addNew').style.display = "inline";
                 break;
             case "off":
-                $('teamForm').style.display = "block";
-                $('clearData').style.display = "inline";
-                $('displayData').style.display = "inline";
-                $('addNew').style.display = "none";
-                $('items').style.display = "none";
+                $('#teamForm').style.display = "block";
+                $('#clearData').style.display = "inline";
+                $('#displayData').style.display = "inline";
+                $('#addNew').style.display = "none";
+                $('#items').style.display = "none";
                 break;
             default:
                 return false;
@@ -104,17 +100,17 @@ $(function(){
         }
         getCheckboxValue();
         var item                = {};
-            item.sports         = ["Sport: ", $('sports').value];
-            item.teamname       = ["Name: ", $('teamname').value];
-            item.teamsize       = ["Team Size: ", $('teamsize').value];
+            item.sports         = ["Sport: ", $('#sports').value];
+            item.teamname       = ["Name: ", $('#teamname').value];
+            item.teamsize       = ["Team Size: ", $('#teamsize').value];
             item.availabletime  = ["Only evening games: ", availableValue];
-            item.nextdate       = ["Next available date: ", $('nextdate').value];
-            item.notes          = ["Notes: ", $('notes').value];
+            item.nextdate       = ["Next available date: ", $('#nextdate').value];
+            item.notes          = ["Notes: ", $('#notes').value];
         //Save data into Local Storage: Use Stringify to convert our object to a string
         localStorage.setItem(id, JSON.stringify(item));
         alert("Team saved!");
     }
-    function getData(){
+    var getData = function(){
         toggleControls("on");
         if(localStorage.length === 0){
             autoFillData();
@@ -125,7 +121,7 @@ $(function(){
         var makeList = document.createElement('ul');
         makeDiv.appendChild(makeList);
         document.body.appendChild(makeDiv);
-        $('items').style.display = "block";
+        $('#items').style.display = "block";
         for(i = 0, j = localStorage.length; i < j; i++){
             var makeli = document.createElement('li');
             var linksLi = document.createElement('li');
@@ -174,7 +170,7 @@ $(function(){
         editLink.href = "#";
         editLink.key = key;
         var editText = "Edit Team";
-        editLink.addEventListener("click", editItem);
+        editLink.on("click", editItem);
         editLink.innerHTML = editText;
         linksLi.appendChild(editLink);
         
@@ -187,7 +183,7 @@ $(function(){
         deleteLink.href = "#";
         deleteLink.key = key;
         var deleteText = "Delete Team";
-        deleteLink.addEventListener("click", deleteItem);
+        deleteLink.on("click", deleteItem);
         deleteLink.innerHTML = deleteText;
         linksLi.appendChild(deleteLink);
     }
@@ -201,25 +197,25 @@ $(function(){
         toggleControls("off");
         
         //Populate form with local storage.
-        $('sports').value = item.sports[1];
-        $('teamname').value = item.teamname[1];
-        $('teamsize').value = item.teamsize[1];
+        $('#sports').value = item.sports[1];
+        $('#teamname').value = item.teamname[1];
+        $('#teamsize').value = item.teamsize[1];
         if (item.availabletime[1] == "Yes") {
-            $('playtime').setAttribute("checked", "checked");
+            $('#playtime').setAttribute("checked", "checked");
         }
-        $('nextdate').value = item.nextdate[1];
-        $('notes').value = item.notes[1];
+        $('#nextdate').value = item.nextdate[1];
+        $('#notes').value = item.notes[1];
         
         //Remove listener from Add Team submission.
         save.removeEventListener("click", saveLocal);
         //Change Add Team value to Edit Team
-        $('submit').value = "Edit Team";
-        var editSubmit = $('submit');
+        $('#submit').value = "Edit Team";
+        var editSubmit = $('#submit');
         editSubmit.addEventListener("click", validate);
         editSubmit.key = this.key;
     }
     
-    function deleteItem(){
+    var deleteItem = function(){
         var ask = confirm("Are you sure you want to delete this team?");
         if (ask == true){
             localStorage.removeItem(this.key);
@@ -230,7 +226,7 @@ $(function(){
         }
     }
     
-    function clearLocal(){
+    var clearLocal = function(){
         if(localStorage.length === 0){
             alert("There is no data to clear.");
         }else{
@@ -241,10 +237,10 @@ $(function(){
         }
     }
     
-    function validate(e) {
+    var validate = function(e){
         //Define elements to validate
-        var getSport = $('sports');
-        var getTeamName = $('teamname');
+        var getSport = $('#sports');
+        var getTeamName = $('#teamname');
         
         //Reset error messages
         errMsg.innerHTML = "";
@@ -281,14 +277,14 @@ $(function(){
     }
     
     var selectSport = ["Choose sport...", "Basketball", "Football", "Racquetball", "Soccer", "Tennis"],
-        errMsg = $('errors');
+        errMsg = $('#errors');
     fillOptions();
     //Link/Submit Click events
-    var displayLink = $('displayData');
-    displayLink.addEventListener("click", getData);
-    var clearLink = $('clearData');
-    clearLink.addEventListener("click", clearLocal);
-    var save = $('submit');
-    save.addEventListener("click", validate);
+    var displayLink = $('#displayData');
+    displayLink.on("click", getData);
+    var clearLink = $('#clearData');
+    clearLink.on("click", clearLocal);
+    var save = $('#submit');
+    save.on("click", validate);
 });
 });
