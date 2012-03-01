@@ -29,23 +29,8 @@ var saveLocal = function(key){
             saveLocal();
             alert("Team saved!");
 
-$(function(){
-
     //Create select field and populate with options
-    var fillOptions = function(){
-        var formTag = document.getElementsByTagName("form"),
-            selectLi = $('#select'),
-            makeSelect = document.createElement('select');
-            makeSelect.setAttribute("id", "sports");
-        for (var i = 0, j = selectSport.length; i<j; i++) {
-            var makeOption = document.createElement('option');
-            var optText = selectSport[i];
-            makeOption.setAttribute("value", optText);
-            makeOption.innerHTML = optText;
-            makeSelect.appendChild(makeOption);
-        }
-        selectLi.appendChild(makeSelect);
-    }
+
     //Checkbox function
     function getCheckboxValue(){
         if($('#playtime').checked){
