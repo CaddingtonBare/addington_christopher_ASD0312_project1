@@ -4,7 +4,7 @@
 // ASD Term 0312
 
 $(function(){
-
+            
 var saveLocal = function(key){
     if(!key){
         var id                  = Math.floor(Math.random()*42000000); 
@@ -29,10 +29,8 @@ var saveLocal = function(key){
             saveLocal();
             alert("Team saved!");
 
-    //Create select field and populate with options
-
     //Checkbox function
-    function getCheckboxValue(){
+    var getCheckboxValue = function (){
         if($('#playtime').checked){
             availableValue = $('#playtime').value;
         }else{
@@ -59,19 +57,23 @@ var saveLocal = function(key){
     */
 
     var toggleControls = function(n){
+        var displayNone = css({ display: none });
+        var displayInline = css({ display: inline });
+        var displayBlock = css({ display: block });
+        
         switch(n){
             case "on":
-                $('#teamForm').style.display = "none";
-                $('#clearData').style.display = "inline";
-                $('#displayData').style.display = "none";
-                $('#addNew').style.display = "inline";
+                $('#teamForm').displayNone
+                $('#clearData').displayInline
+                $('#displayData').displayNone
+                $('#addNew').displayInline
                 break;
             case "off":
-                $('#teamForm').style.display = "block";
-                $('#clearData').style.display = "inline";
-                $('#displayData').style.display = "inline";
-                $('#addNew').style.display = "none";
-                $('#items').style.display = "none";
+                $('#teamForm').displayBlock
+                $('#clearData').displayInline
+                $('#displayData').displayInline
+                $('#addNew').displayNone
+                $('#items').displayNone
                 break;
             default:
                 return false;
@@ -106,7 +108,9 @@ var saveLocal = function(key){
         var makeList = document.createElement('ul');
         makeDiv.appendChild(makeList);
         document.body.appendChild(makeDiv);
-        $('#items').style.display = "block";
+        $('#items').css({
+            display: block
+        });
         for(i = 0, j = localStorage.length; i < j; i++){
             var makeli = document.createElement('li');
             var linksLi = document.createElement('li');
@@ -229,8 +233,12 @@ var saveLocal = function(key){
         
         //Reset error messages
         errMsg.innerHTML = "";
-        getSport.style.border = "1px solid black";
-        getTeamName.style.border = "1px solid black";
+        getSport.css({
+            border: 1px solid black
+        });
+        getTeamName.css({
+            border: 1px solid black
+        });
 
         
         //Get error messages
@@ -238,13 +246,17 @@ var saveLocal = function(key){
         //Group validation
         if (getSport.value == "Choose sport..."){
             var sportError = "Please choose a sport.";
-            getSport.style.border = "1px solid red";
+            getSport.css({
+                border: 1px solid red
+            });
             messageAry.push(sportError);
         }
         //Team Name validation
         if (getTeamName.value == ""){
             var teamNameError = "Please enter a team name."
-            getTeamName.style.border = "1px solid red";
+            getTeamName.css({
+                border: 1px solid red
+            });
             messageAry.push(teamNameError);
         }
         //Display errors
