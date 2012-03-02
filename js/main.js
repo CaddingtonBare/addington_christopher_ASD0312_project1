@@ -109,43 +109,38 @@ var saveLocal = function(key){
         $('<ul id="itemsUl"></ul>')
             .appendTo('#items')
         ;
-        var makeDiv = $('<div id="items"></div>');
-        var makeList = $('<ul></ul>');
         $('#items').css({
             display: block
         });
         for(i = 0, j = localStorage.length; i < j; i++){
             var key = localStorage.key(i);
             var value = localStorage.getItem(key);
-            var obj = JSON.parse(value);       
+            var obj = JSON.parse(value);
             $('#itemsUl')
                 .append('<li></li>')
             ;
             $('#itemsUl li:last')
                 .append('<ul></ul>')
-            ;
-            var makeSubList = document.createElement('ul');
-            makeli.appendChild(makeSubList);
-            getImage(obj.sports[1], makeSubList);
+            getImage(obj.sports[1]);
             for (var n in obj){
-                var makeSubli = document.createElement('li');
-                makeSubList.appendChild(makeSubli);
                 var optSubText = obj[n][0] + " " + obj[n][1];
-                makeSubli.innerHTML = optSubText;
-                makeSubList.appendChild(linksLi);
-            }
-            makeItemLinks(localStorage.key(i), linksLi); //Create edit/delete links for each item.
+                var subLi = $('#subLi');
+                $('#itemsUl li:last ul')
+                    .append('<li id="subLi"></li>')
+                    .append('<li id="linksLi"></li>')
+                ;
+                subLi
+                    .html(optSubText)
+                ;        
+            }            
+            makeItemLinks(localStorage.key(i)); //Create edit/delete links for each item.
         }    
     }
     
     //Function to get a unique image for each sport.
-    function getImage(catName, makeSubList){
-        var imageLi = document.createElement('li');
-        makeSubList.appendChild(imageLi);
-        var makeImg = document.createElement('img');
-        var setSrc = makeImg.setAttribute("src", "images/" + catName + ".png");
-        imageLi.appendChild(makeImg);
-        
+    function getImage(catName){
+        $('#itemsUl li:last ul')
+            .append('<li><img src="images/" + catName + ".png"');        
     }
     
     //JSON OBJECT to autofill default localStorage data.
@@ -160,27 +155,16 @@ var saveLocal = function(key){
     
     //makeItemLinks function
     //Incorporates edit/delete links for local storage on display.
-    function makeItemLinks(key, linksLi){
-        var editLink = document.createElement('a');
-        editLink.href = "#";
-        editLink.key = key;
-        var editText = "Edit Team";
-        editLink.on("click", editItem);
-        editLink.innerHTML = editText;
-        linksLi.appendChild(editLink);
-        
-        //Line break to separate edit & delete links.
-        var breakTag = document.createElement('br');
-        linksLi.appendChild(breakTag);
-        
-        //Add a delete item link in local storage display.
-        var deleteLink = document.createElement('a');
-        deleteLink.href = "#";
-        deleteLink.key = key;
-        var deleteText = "Delete Team";
-        deleteLink.on("click", deleteItem);
-        deleteLink.innerHTML = deleteText;
-        linksLi.appendChild(deleteLink);
+    var makeItemLinks = function (key){
+        var linksLi = $('#linksLi');
+            linksLi.key = key;
+        linksLi
+            .append('<a id="editLink" href="#">Edit Team</a>')
+            .append('<br>')
+            .append('<a id="deleteLink" href="#">Delete Team</a>')
+        ;
+        $('#editLink').on("click", editItem);
+        $('#deleteLink').on("click", deleteItem);
     }
     
     function editItem(){
