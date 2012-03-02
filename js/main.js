@@ -3,40 +3,7 @@
 // Assignment: Project 1
 // ASD Term 0312
 
-$(function(){
-            
-var saveLocal = function(key){
-    if(!key){
-        var id                  = Math.floor(Math.random()*42000000); 
-    }else{
-        id = key;
-    }
-    var item                    = {};
-    item.sports                 = ["Sport: ", $('#sports').value];
-    item.teamname               = ["Name: ", $('#teamname').value];
-    item.teamsize               = ["Team Size: ", $('#teamsize').value];
-    item.nextdate               = ["Next available date: ", $('#nextdate').value];
-//Save data into Local Storage: Use Stringify to convert our object to a string
-    localStorage.setItem(id, JSON.stringify(item));
-}   
-    var tmform = $('#teamform');
-    
-    tmform.validate({
-        invalidHandler: function(form, validator){},
-        submitHandler: function(){
-            var data = tmform.serializeArray();
-            parseTeamForm(data);
-            saveLocal();
-            alert("Team saved!");
-
-    //Checkbox function
-    var getSelectValue = function (){
-        if($('#availabletime').checked){
-            availableValue = $('#playtime').value;
-        }else{
-            availableValue = "No"
-        }
-    }
+$(function(){    
     
     /* Multi-component checkbox function, not using it for this week's project.  May not be very close to an ideal solution but I feel like I get the basic approach
       after having thought it over for a while.  Stopped trying to get it done for this project because it was taking up too much time.
@@ -79,20 +46,19 @@ var saveLocal = function(key){
                 return false;
         }
     }
-    function saveLocal(key) {
+    var saveLocal = function(key) {
         if(!key){
            var id                  = Math.floor(Math.random()*42000000); 
         }else{
             id = key;
         }
-        getSelectValue();
         var item                = {};
-            item.sports         = ["Sport: ", $('#sports').value];
-            item.teamname       = ["Name: ", $('#teamname').value];
-            item.teamsize       = ["Team Size: ", $('#teamsize').value];
-            item.availabletime  = ["Only evening games: ", availableValue];
-            item.nextdate       = ["Next available date: ", $('#nextdate').value];
-            item.notes          = ["Notes: ", $('#notes').value];
+            item.sports         = ["Sport: ", $('#selectsport').html()];
+            item.teamname       = ["Name: ", $('#teamname').html()];
+            item.teamsize       = ["Team Size: ", $('#teamsize').html()];
+            item.availabletime  = ["Only evening games: ", $('#availabletime').html()];
+            item.nextdate       = ["Next available date: ", $('#nextdate').html()];
+            item.notes          = ["Notes: ", $('#notes').html()];
         //Save data into Local Storage: Use Stringify to convert our object to a string
         localStorage.setItem(id, JSON.stringify(item));
         alert("Team saved!");
@@ -133,7 +99,7 @@ var saveLocal = function(key){
                     .html(optSubText)
                 ;        
             }            
-            makeItemLinks(localStorage.key(i)); //Create edit/delete links for each item.
+            makeItemLinks(key); //Create edit/delete links for each item.
         }    
     }
     
@@ -177,12 +143,10 @@ var saveLocal = function(key){
         toggleControls("off");
         
         //Populate form with local storage.
-        $('#sports').value = item.sports[1];
-        $('#teamname').value = item.teamname[1];
-        $('#teamsize').value = item.teamsize[1];
-        if (item.availabletime[1] == "Yes") {
-            $('#playtime').setAttribute("checked", "checked");
-        }
+        $('#selectsport').html(item.sports[1]);
+        $('#teamname').html(item.teamname[1]);
+        $('#teamsize').html(item.teamsize[1]);
+        $('#availabletime').html(item.availabletime[1]);
         $('#nextdate').value = item.nextdate[1];
         $('#notes').value = item.notes[1];
         
@@ -221,9 +185,10 @@ var saveLocal = function(key){
         //Define elements to validate
         var getSport = $('#selectsport');
         var getTeamName = $('#teamname');
+        var getNextDate = $('#nextdate');
         
         //Reset error messages
-        errMsg.innerHTML = "";
+        errMsg.html("");
         getSport.css({
             border: 1px solid black
         });
@@ -231,7 +196,6 @@ var saveLocal = function(key){
             border: 1px solid black
         });
 
-        
         //Get error messages
         var messageAry = [];
         //Group validation
@@ -250,6 +214,15 @@ var saveLocal = function(key){
             });
             messageAry.push(teamNameError);
         }
+        //Next Date validation
+        if (getNextDate).html() == ""){
+            var nextDateError = "Please enter a date."
+            getNextDate.css({
+                border: 1px solid red
+            });
+            messageAry.push(nextDateError);
+        }
+        
         //Display errors
         if (messageAry.length >= 1){
             for( var i=0, j=messageAry.length; i<j; i++){
@@ -265,9 +238,7 @@ var saveLocal = function(key){
         }
     }
     
-    var selectSport = ["Choose sport...", "Basketball", "Football", "Racquetball", "Soccer", "Tennis"],
-        errMsg = $('#errors');
-    fillOptions();
+    var errMsg = $('#errors');
     //Link/Submit Click events
     $('#displayData').on("click", getData);
     $('#clearData').on("click", clearLocal);
