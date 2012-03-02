@@ -30,8 +30,8 @@ var saveLocal = function(key){
             alert("Team saved!");
 
     //Checkbox function
-    var getCheckboxValue = function (){
-        if($('#playtime').checked){
+    var getSelectValue = function (){
+        if($('#availabletime').checked){
             availableValue = $('#playtime').value;
         }else{
             availableValue = "No"
@@ -85,7 +85,7 @@ var saveLocal = function(key){
         }else{
             id = key;
         }
-        getCheckboxValue();
+        getSelectValue();
         var item                = {};
             item.sports         = ["Sport: ", $('#sports').value];
             item.teamname       = ["Name: ", $('#teamname').value];
@@ -103,21 +103,27 @@ var saveLocal = function(key){
             autoFillData();
             alert("There is no data in storage so default data was added.");
         }
-        var makeDiv = document.createElement('div');
-        makeDiv.setAttribute("id", "items");
-        var makeList = document.createElement('ul');
-        makeDiv.appendChild(makeList);
-        document.body.appendChild(makeDiv);
+        $('body')
+            .append($('<div id="items"></div>'))
+        ;
+        $('<ul id="itemsUl"></ul>')
+            .appendTo('#items')
+        ;
+        var makeDiv = $('<div id="items"></div>');
+        var makeList = $('<ul></ul>');
         $('#items').css({
             display: block
         });
         for(i = 0, j = localStorage.length; i < j; i++){
-            var makeli = document.createElement('li');
-            var linksLi = document.createElement('li');
-            makeList.appendChild(makeli);
             var key = localStorage.key(i);
             var value = localStorage.getItem(key);
-            var obj = JSON.parse(value);
+            var obj = JSON.parse(value);       
+            $('#itemsUl')
+                .append('<li></li>')
+            ;
+            $('#itemsUl li:last')
+                .append('<ul></ul>')
+            ;
             var makeSubList = document.createElement('ul');
             makeli.appendChild(makeSubList);
             getImage(obj.sports[1], makeSubList);
