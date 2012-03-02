@@ -125,7 +125,7 @@ var saveLocal = function(key){
             for (var n in obj){
                 var optSubText = obj[n][0] + " " + obj[n][1];
                 var subLi = $('#subLi');
-                $('#itemsUl li:last ul')
+                $('#itemsUl li:last ul:last')
                     .append('<li id="subLi"></li>')
                     .append('<li id="linksLi"></li>')
                 ;
@@ -139,8 +139,9 @@ var saveLocal = function(key){
     
     //Function to get a unique image for each sport.
     function getImage(catName){
-        $('#itemsUl li:last ul')
-            .append('<li><img src="images/" + catName + ".png"');        
+        $('#itemsUl li:last ul:last')
+            .append('<li><img src="images/" + catName + ".png"')
+        ;        
     }
     
     //JSON OBJECT to autofill default localStorage data.
@@ -156,7 +157,7 @@ var saveLocal = function(key){
     //makeItemLinks function
     //Incorporates edit/delete links for local storage on display.
     var makeItemLinks = function (key){
-        var linksLi = $('#linksLi');
+        var linksLi =   $('#itemsUl li:last ul:last li:last');
             linksLi.key = key;
         linksLi
             .append('<a id="editLink" href="#">Edit Team</a>')
