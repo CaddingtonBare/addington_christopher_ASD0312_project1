@@ -219,7 +219,7 @@ var saveLocal = function(key){
     
     var validate = function(e){
         //Define elements to validate
-        var getSport = $('#sports');
+        var getSport = $('#selectsport');
         var getTeamName = $('#teamname');
         
         //Reset error messages
@@ -235,7 +235,7 @@ var saveLocal = function(key){
         //Get error messages
         var messageAry = [];
         //Group validation
-        if (getSport.value == "Choose sport..."){
+        if (getSport.html() == "Choose sport..."){
             var sportError = "Please choose a sport.";
             getSport.css({
                 border: 1px solid red
@@ -243,7 +243,7 @@ var saveLocal = function(key){
             messageAry.push(sportError);
         }
         //Team Name validation
-        if (getTeamName.value == ""){
+        if (getTeamName.html() == ""){
             var teamNameError = "Please enter a team name."
             getTeamName.css({
                 border: 1px solid red
@@ -253,11 +253,12 @@ var saveLocal = function(key){
         //Display errors
         if (messageAry.length >= 1){
             for( var i=0, j=messageAry.length; i<j; i++){
-                var text = document.createElement('li')
-                text.innerHTML = messageAry[i];
-                errMsg.appendChild(text);
+                $('#errors')
+                    .append('<li></li>')
+                ;
+                $('#errors li:last')
+                    .html(messageAry[i]);
             }
-        e.preventDefault();
         return false;
         }else{
             saveLocal(this.key);
@@ -268,11 +269,8 @@ var saveLocal = function(key){
         errMsg = $('#errors');
     fillOptions();
     //Link/Submit Click events
-    var displayLink = $('#displayData');
-    displayLink.on("click", getData);
-    var clearLink = $('#clearData');
-    clearLink.on("click", clearLocal);
-    var save = $('#submit');
-    save.on("click", validate);
+    $('#displayData').on("click", getData);
+    $('#clearData').on("click", clearLocal);
+    $('#submit').on("click", validate);
 });
 });
