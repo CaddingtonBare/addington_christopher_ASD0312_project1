@@ -3,25 +3,13 @@
 // Assignment: Project 1
 // ASD Term 0312
 
+/* While not everything points to the proper/valid elements yet, I think I have set the groundwork for redirecting everything else this weekend,
+  and getting my CRUD functional by the second or third week.  I wanted to focus on learning the jQuery syntax and capabilities this week.  I only had a few minor
+  questions which I can bring up during next week's Wimba.  One thing that really bothered me was the error thrown by the "1px" value under my getSport.css border modification,
+  I have no idea why it's still underlined red in my text editor.
+*/
+
 $(function(){    
-    
-    /* Multi-component checkbox function, not using it for this week's project.  May not be very close to an ideal solution but I feel like I get the basic approach
-      after having thought it over for a while.  Stopped trying to get it done for this project because it was taking up too much time.
-    function getCheckbox() {
-        var times = ["morning", "afternoon", "evening"],
-            timeValues = ["Morning", "Afternoon", "Evening"],
-            availableValue = [];
-        for (i = 0; i < times.length; i++) {
-            var whichTime = document.getElementById(times[i]);
-            if (whichTime.checked) {
-                availableValue.push(timeValues[i]);
-            }else{
-                availableValue.push("Not available in the" + timeValues[i]);
-            }
-        }
-        return availableValue;
-    }
-    */
 
     var toggleControls = function(n){
         var displayNone = css({ display: none });
@@ -134,7 +122,7 @@ $(function(){
         $('#deleteLink').on("click", deleteItem);
     }
     
-    function editItem(){
+    var editItem = function(){
         //Retrieve data from specified team.
         var value = localStorage.getItem(this.key);
         var item = JSON.parse(value);
@@ -147,16 +135,15 @@ $(function(){
         $('#teamname').html(item.teamname[1]);
         $('#teamsize').html(item.teamsize[1]);
         $('#availabletime').html(item.availabletime[1]);
-        $('#nextdate').value = item.nextdate[1];
-        $('#notes').value = item.notes[1];
+        $('#nextdate').html(item.nextdate[1]);
+        $('#notes').html(item.notes[1]);
         
         //Remove listener from Add Team submission.
-        save.removeEventListener("click", saveLocal);
+        $('#submit').unbind();
         //Change Add Team value to Edit Team
-        $('#submit').value = "Edit Team";
-        var editSubmit = $('#submit');
-        editSubmit.addEventListener("click", validate);
-        editSubmit.key = this.key;
+        $('#submit').replaceWith('<input type="submit" id="submit" value="Edit" data-icon="check" data-iconpos="left" data-iconshadow="true" data-shadow="true" data-theme="e" />');
+        $('#submit').on("click", validate);
+        $('#submit').key = this.key;
     }
     
     var deleteItem = function(){
@@ -243,5 +230,4 @@ $(function(){
     $('#displayData').on("click", getData);
     $('#clearData').on("click", clearLocal);
     $('#submit').on("click", validate);
-});
 });

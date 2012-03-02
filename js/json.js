@@ -1,7 +1,7 @@
 // Name: Christopher Addington
-// Date: 07 December, 2011
-// Assignment: Project 3
-// MIU Term 1112
+// Date: 27 February, 2012
+// Assignment: Project 1
+// ASD Term 0312
 
 var json = {
     "team1": {
